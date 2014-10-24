@@ -44,7 +44,12 @@ int main()
         	printf("Send failed");
         	return 1;
     	}
-	int readbuf, flag=0, huruf=0, flaghuruf=0, i=0;
+	int readbuf; 
+	flag = 0; 
+	huruf = 0 
+	flaghuruf = 0 
+	i = 0;
+	
 	fd = open("file.txt", O_RDWR | O_APPEND | O_CREAT,S_IWUSR | S_IRUSR);
 	char getimg[102400];
 	
