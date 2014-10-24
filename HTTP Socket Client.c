@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 		return -1;
 	}    	
 	
-	else if (argc < 2)
+	else if (argc > 2)
 	{
 		puts ("Too many arguments!\n");
 	}
