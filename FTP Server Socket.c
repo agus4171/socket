@@ -1,3 +1,10 @@
+//######################################################//
+// 			Title : FTP Server Socket in c 				//
+// 					Programmer : 						//
+//				I Made Agus Adi Wirawan					//
+//					5112100036							//
+//######################################################//
+
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -61,47 +68,42 @@ int main(int argc, char * argv[])
 				{
 					sscanf(user, "USER %s", rbuffer);
 					if (strcmp(user, "agus")==0)
-					printf("Logging in\n");
-					sprintf(sbuffer, "331 Password required\r\n");
-					write(sd_data, sbuffer, strlen(sbuffer));
+						{
+							sprintf(sbuffer, "331 Password required\r\n");
+							write(sd_data, sbuffer, strlen(sbuffer));
+						}
 				}
-				
+								
 				if (strncmp(rbuffer,"PASS",4)==0)
 				{
 					sscanf(pass, "PASS %s", rbuffer);
 					if (strcmp(pass, "agus")==0)
-					printf("Logging in\n");
-					sprintf(sbuffer, "230 Successfully login\r\n");
-					write(sd_data, sbuffer, strlen(sbuffer));
+						{
+							sprintf(sbuffer, "230 Successfully login\r\n");
+							write(sd_data, sbuffer, strlen(sbuffer));
+						}
+					else
+						{
+							sprintf(sbuffer, "430 Invalid Password\r\n");
+							write(sd_data, sbuffer, strlen(sbuffer));
+						}
 				}
 								
 				if (strncmp(rbuffer,"SYST",4)==0)
 				{
-					printf("Information about the system\n");
-					sprintf(sbuffer, "257 A very naive FTP system\r\n");
+					sprintf(sbuffer, "257 System is turn on\r\n");
 					write(sd_data, sbuffer, strlen(sbuffer));
 				}
-				
-				/*if (strncmp(rbuffer,"PASV",4)==0)
-				{
-					printf("Passive mode\n");
-					sprintf(sbuffer, "227 Passive mode (%d,%d,%d,%d,%d,%d)\r\n", 127,0,0,1(1220>>8), (1220 & 0x00FF));
-					bytes = send(newsd, sbuffer, strlen(sbuffer), 0);
-					//newsd_data = accept(s_data)
-				}*/
 				
 				if (strncmp(rbuffer,"QUIT",3)==0)
 				{
-					printf("Quit\n");
 					sprintf(sbuffer, "221 Bye bye\n");
 					write(sd_data, sbuffer, strlen(sbuffer));
 					close(sd_data);
-					//printf("Disconnect %s", inet_ntoa(cliaddr.sin_addr));
+					printf("Disconnected from client %s\n",inet_ntoa(cliaddr.sin_addr));
 					return 0;
 				}
 			}
-
-		close(sd_data);
 		}	
 	}
 	close (sd);
